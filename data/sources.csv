@@ -1,0 +1,11 @@
+source,reference_key,path_under_DATA_ROOT,official_access,used_by
+Fox8-23,yang2024anatomy,fox8_23_dataset.ndjson.gz,https://zenodo.org/records/8035290,cohorts; baselines; phrase removal; transfer; profiles; routes
+BotSim-24,qiao2025botsim,BotSim-24-Dataset/Users.csv; BotSim-24-Dataset/user_post_comment.json,https://github.com/QQQQQQBY/BotSim (BotSim-24-Dataset),cohorts; baselines; transfer; profiles; routes
+Masquerade-23,li2025masquerade,Masquerade-23/SDAR/chirper_user_en_cleaned.json,https://github.com/Litsay/Masquerade-23 (data via the authors' link),Masquerade-rebuilt; routes
+TwiBot-20,feng2021twibot20,TwiBot-20/Twibot-20.zip,https://github.com/BunsenFeng/TwiBot-20 (access on request),Masquerade-rebuilt; routes; Table 1
+TwiBot-22,feng2022twibot22,TwiBot-22/{label.csv; user.json; edge.csv; tweet_0.json ... tweet_8.json},https://github.com/LuoUndergradXJTU/TwiBot-22 (access on request),Table 1
+MGTAB,shi2023mgtab,MGTAB/MGTAB/{features.pt; labels_bot.pt},https://github.com/GraphDetec/MGTAB,Table 1 (optional torch)
+Twitter IO,seckin2024labeled,campaigns/<campaign>/*.parquet,https://zenodo.org/records/14189193 and the per-campaign records it lists,Table 1; routes; IO matching
+Bluesky,meng2026navigating,bluesky/meng2026_dataset_label_raw.csv,https://osf.io/qscf8 (dataset_label_raw.csv),routes
+CMV,jaidka2026howfar,not needed,https://github.com/kokiljaidka/UnauthorizedRedditCMVPosts,Table 1 row only (from its paper)
+Yard Signs,linvill2024yardsigns,not needed,report: https://open.clemson.edu/mfh_reports/7 (data not public),Table 1 row only (from its report)

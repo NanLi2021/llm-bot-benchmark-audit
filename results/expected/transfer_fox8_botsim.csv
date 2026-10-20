@@ -1,0 +1,9 @@
+fit_on,scored_on,condition,auc,lo,hi,n_fit,n_scored
+Fox8-23,BotSim-24,as released,0.9984,0.9963,0.9997,1000,737
+Fox8-23,BotSim-24,selection phrase deleted,0.9985,0.9965,0.9997,1000,737
+Fox8-23,BotSim-24,document length alone,0.7806,0.7469,0.816,1000,737
+Fox8-23,BotSim-24,shuffled training labels (20),0.5138,0.2585,0.8145,1000,737
+BotSim-24,Fox8-23,as released,0.8899,0.8693,0.9094,737,1000
+BotSim-24,Fox8-23,selection phrase deleted,0.8903,0.8692,0.9095,737,1000
+BotSim-24,Fox8-23,document length alone,0.7441,0.7063,0.7752,737,1000
+BotSim-24,Fox8-23,shuffled training labels (20),0.4879,0.2831,0.7358,737,1000

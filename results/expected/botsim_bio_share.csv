@@ -1,0 +1,5 @@
+rule,cls,accounts,with_bio,share
+description not missing,bot,1000,1000,1.0
+description not missing,human,1907,278,0.1458
+description non-empty after strip,bot,1000,1000,1.0
+description non-empty after strip,human,1907,277,0.1453

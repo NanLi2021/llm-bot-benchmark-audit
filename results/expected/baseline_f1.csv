@@ -1,0 +1,7 @@
+corpus,condition,accounts,bots,auc,f1_bot,f1_macro,shuffled_null,duplicate_docs,shared_docs,auc_phrase_removed
+Fox8-23,all 50 messages,1000,500,1.0,1.0,1.0,,,,
+Fox8-23,checks,1000,500,1.0,,,0.5099,0.0,0.0,1.0
+Fox8-23,20 messages cut to 25 words,1000,500,0.9363,0.8658,,,,,
+BotSim-24,all 50 messages,737,329,1.0,1.0,1.0,,,,
+BotSim-24,checks,737,329,1.0,,,0.4983,0.0,0.0,1.0
+BotSim-24,20 messages cut to 25 words,737,329,0.9747,0.897,,,,,

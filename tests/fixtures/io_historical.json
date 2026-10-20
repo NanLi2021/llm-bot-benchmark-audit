@@ -1,0 +1,18 @@
+{
+  "fixture": "tests.test_sampling.campaign (synthetic)",
+  "producer_sha256": "82130cd66c1df452b9cf7c8e9cca15965465a483f31a1feaa94f4baf321a000d",
+  "selections": [
+    {
+      "draw": 0,
+      "sha256": "fab530936a485d44ab816c76b2ab3aadad5ca3bda07908ae37b6c2cad2668b2e"
+    },
+    {
+      "draw": 3,
+      "sha256": "71dc4232f29cb907988cb74f0eac6418eb0a8ecd6b7da7b7a8ddaf45a1221201"
+    },
+    {
+      "draw": 7,
+      "sha256": "5c1ee6aefc093180f5863bc06bb59baba388271ec238378b04f27391a0cd3682"
+    }
+  ]
+}

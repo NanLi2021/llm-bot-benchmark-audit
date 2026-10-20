@@ -1,0 +1,15 @@
+input,comparison,n,accuracy,chance,auc
+"full text, 20 messages","four-way, which study",1132,0.6025,0.2518,
+"full text, 20 messages",botometer-feedback vs gilani-17,563,,,0.8739
+"full text, 20 messages",botometer-feedback vs midterm-2018,564,,,0.9001
+"full text, 20 messages",botometer-feedback vs varol-icwsm,565,,,0.8833
+"full text, 20 messages",gilani-17 vs midterm-2018,567,,,0.8895
+"full text, 20 messages",gilani-17 vs varol-icwsm,568,,,0.703
+"full text, 20 messages",midterm-2018 vs varol-icwsm,569,,,0.8805
+the same 25 words,"four-way, which study",1132,0.386,0.2518,
+the same 25 words,botometer-feedback vs gilani-17,563,,,0.7184
+the same 25 words,botometer-feedback vs midterm-2018,564,,,0.6079
+the same 25 words,botometer-feedback vs varol-icwsm,565,,,0.6615
+the same 25 words,gilani-17 vs midterm-2018,567,,,0.7124
+the same 25 words,gilani-17 vs varol-icwsm,568,,,0.6774
+the same 25 words,midterm-2018 vs varol-icwsm,569,,,0.7003

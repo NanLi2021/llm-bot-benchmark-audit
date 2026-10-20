@@ -1,0 +1,6 @@
+arm,rule,bots,humans,dropped_bots,dropped_humans,auc,ci_lo,ci_hi,f1_bot,f1_macro,errors,null_auc,fold_seed,boot,pattern
+A0,nothing changed,500,500,0,0,1.0,1.0,1.0,1.0,1.0,0.0,0.5099,0,1000,as an ai language model|i[’']?m an ai\b|i am an ai\b|i cannot fulfill|as a language model|i don[’']?t have personal|openai|chatgpt
+A1,self-revealing phrases deleted from every message,500,500,0,0,1.0,1.0,1.0,1.0,1.0,0.0,0.5095,0,1000,as an ai language model|i[’']?m an ai\b|i am an ai\b|i cannot fulfill|as a language model|i don[’']?t have personal|openai|chatgpt
+A2,accounts dropped whose 50 scored messages contain a phrase,222,500,278,0,1.0,1.0,1.0,1.0,1.0,0.0,0.4687,0,1000,as an ai language model|i[’']?m an ai\b|i am an ai\b|i cannot fulfill|as a language model|i don[’']?t have personal|openai|chatgpt
+A2-strict,accounts dropped whose full history contains a phrase,31,500,469,0,1.0,1.0,1.0,0.0,0.485,31.0,0.3546,0,1000,as an ai language model|i[’']?m an ai\b|i am an ai\b|i cannot fulfill|as a language model|i don[’']?t have personal|openai|chatgpt
+"A2-strict, balanced","A2-strict with humans drawn to equal the bots, 100 draws; mean, and 2.5-97.5% of draws",31,31,469,469,1.0,1.0,1.0,0.9989,,,,0,100,as an ai language model|i[’']?m an ai\b|i am an ai\b|i cannot fulfill|as a language model|i don[’']?t have personal|openai|chatgpt

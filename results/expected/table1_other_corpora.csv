@@ -1,0 +1,7 @@
+corpus,cell,field,value,null,n
+TwiBot-20,bag of words,,0.8204,0.5038,11682
+TwiBot-20,best attribute,ff_ratio,0.7485,0.5081,11826
+MGTAB,best attribute,col14,0.8622,0.5084,10199
+TwiBot-22,best attribute,followers,0.7733,0.5008,1000000
+Twitter IO,best attribute,varies,0.54 to 0.99,0.5201,25
+Twitter IO,bag of words,,0.81 to 0.99,0.4965,25

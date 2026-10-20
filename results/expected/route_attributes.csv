@@ -1,0 +1,7 @@
+study_a,study_b,n,field,cv_auc,null
+botometer-feedback,gilani-17,570,ff_ratio,0.8467,0.5307
+botometer-feedback,midterm-2018,570,favourites_count,0.665,0.532
+botometer-feedback,varol-icwsm,570,description_len,0.6485,0.5305
+gilani-17,midterm-2018,570,ff_ratio,0.854,0.5301
+gilani-17,varol-icwsm,570,followers_count,0.8988,0.5277
+midterm-2018,varol-icwsm,570,description_len,0.7032,0.5292

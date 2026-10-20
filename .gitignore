@@ -1,0 +1,45 @@
+# Local environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+.DS_Store
+.idea/
+.vscode/
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Private planning and generated artifacts
+tmp_files/
+build/
+dist/
+*.egg-info/
+# Only access documentation is tracked under data/.
+data/*
+!data/README.md
+!data/sources.csv
+models/
+checkpoints/
+logs/
+
+# TeX build products; final PDFs can be explicitly versioned
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Large model formats are not part of this CPU audit release
+*.safetensors
+*.ckpt
+*.pt
+*.pth

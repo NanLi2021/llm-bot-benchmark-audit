@@ -1,0 +1,408 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,booktabs,amsmath,graphicx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{url}
+\usepackage[hidelinks,pdfauthor={},pdftitle={Online appendix}]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\title{Online appendix\\[3pt]\large Benchmark corpora for detecting LLM-era bots}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2em}
+This appendix holds what the paper points to. Every number in it is reproduced by the code in this
+repository (\texttt{scripts/run\_all.sh}) and checked against \texttt{results/expected/}.
+
+\section{How the ten corpora were found}\label{app:search}
+The search ran on 20 August 2026 with web search and the OpenAlex API, after exploratory
+  searches earlier that month.
+It followed three axes.
+First, keyword variants for how the field names these bots (``LLM-driven'', ``LLM-powered'',
+  ``AI-powered'' and ``generative agent'', each with ``social bot'', ``detection'', ``benchmark''
+  or ``dataset'').
+Second, searches by dataset name, using each corpus already found as an entry point.
+Third, a forward citation chase through OpenAlex from two anchors, Fox8-23 (57 citing works at
+  the time of the search) and BotSim-24 (12).
+The chase found the most; the keyword axis found the least, because the field's naming is
+  unstable.
+Each axis stopped when a query returned nothing new.
+Which corpora a paper evaluates on was read from its full text, since abstract pages do not name
+  them.
+
+We kept every account-labelled corpus of social-media bots the search returned that either carries a
+  published account-level detection result from a model that uses content or was released to
+  study a campaign or information operation.
+Corpora that label texts rather than accounts, such as MultiSocial, are out of scope
+  (Sect.~2.1 of the paper).
+We did not keep the exact wording of every keyword query or per-query screening counts, so this
+  appendix records the procedure and its stopping rule, not a screening count.
+
+\section{The ten corpora}\label{app:corpora}
+That search returns the ten corpora in Table~1 of the paper.
+Six have published account-level detection results from models that use content.
+The other four were built mainly to study campaigns and information operations rather than
+  detection.
+
+\paragraph{Most of the ten lack one of the three.}
+\emph{Three hold no LLM-written posts.}
+TwiBot-20 \citep{feng2021twibot20} contains accounts crawled outwards from seed users in politics,
+  business, entertainment and sports.
+TwiBot-22 \citep{feng2022twibot22} uses a larger crawl of the same kind; both release the posts.
+Twitter IO \citep{seckin2024labeled} contains accounts Twitter removed as state-linked influence
+  operations.
+All three were collected before ChatGPT's release in November 2022.
+
+\emph{Three have no human class.}
+CMV \citep{jaidka2026howfar} releases 33 undisclosed LLM accounts that argued in a Reddit debate
+  forum, all of them the experiment's bots \citep{cmvmods2025disclosure}.
+Yard Signs \citep{linvill2024yardsigns} contains only accounts from a 2024 political campaign
+  on X that replied to ordinary users, with no human comparison class.
+Masquerade-23 \citep{li2025masquerade} is text from Chirper.ai, a platform whose users are all
+  bots, so on its own it has no human class; we use it below in rebuilt form.
+
+\emph{Two release no posts.}
+MGTAB \citep{shi2023mgtab} contains expert-annotated accounts from a Twitter debate and releases
+  extracted features rather than posts.
+Bluesky \citep{meng2026navigating} contains 10,610 accounts from the platform Bluesky, with a label and
+  source for each account but no posts.
+
+For Table~1 of the paper, MGTAB, TwiBot-20 and TwiBot-22 each used one crawl and labelled
+  the accounts afterwards.
+Bluesky is partly LLM-written: 460 of its 4,215 labelled bots are marked as generative.
+MGTAB releases embeddings rather than posts; Bluesky releases account labels and their sources.
+
+\section{Baselines}\label{app:baselines}
+On Fox8-23 and BotSim-24 our runs use the accounts with at least 50 usable posts (20 characters or more), and score every account out of fold under five-fold cross-validation.
+We use cross-validation because neither corpus ships a split: the published results use a random
+  held-out split that each paper draws in its own code.
+On Masquerade-rebuilt the published scores are for a three-way task that adds TwiBot-20's
+  pre-LLM bots, so they are not directly comparable with our two-class result.
+
+\paragraph{The simple baseline.}
+Where the tables say ``bag of words'' the model is TF-IDF over the account's own posts with
+  a minimum document frequency of two, followed by logistic regression, scored out of fold
+  under five-fold cross-validation.
+The whole pipeline is fitted inside each training fold, and no two accounts share a document.
+The Fox8-23 and BotSim-24 bot-versus-human runs join each account's 50 messages;
+  Sect.~
+ef{app:io} gives the separate Twitter IO settings.
+The human-source comparisons on Fox8-23 join 20 messages, so these two analyses do not use the
+  same amount of text.
+
+Masquerade-rebuilt is scored on the text contrast it creates, Chirper.ai posts against TwiBot-20's
+  human accounts, with 5,158 accounts per class.
+
+We report the bag-of-words result as AUC everywhere except Sect.~2.2 of the paper, where we
+  also compute F1 to compare with published F1 scores.
+The papers do not state their F1 thresholds; the released TRACE-Bot and BotDMM code takes the
+  more probable class, a cut at 0.5, which we also use.
+In the 50-message condition, any threshold between the two classes gives the same result:
+  the out-of-fold scores do not overlap,
+  the lowest bot scoring 0.737 against the highest human 0.471 on Fox8-23 and 0.704 against 0.240
+  on BotSim-24, so the AUC is exactly 1 and every threshold between them gives the same F1.
+The bag of words also needs little text: 20 randomly selected posts concatenated and then
+  truncated to 25 words in total still give F1 0.866 on Fox8-23 and 0.897 on BotSim-24.
+This truncated condition does overlap, and its F1 does depend on the cut.
+% NEW: how a printed number was computed
+TwiBot-22's bag of words is scored on the 6,920 labelled accounts with at least one English reply to an English
+  post that is not in a thread of their own; each account's replies are joined and cut to 20,000 characters.
+
+\paragraph{The attribute baseline.}
+A single account attribute uses the same five-fold procedure on one feature, so its direction is
+  learned on the training folds rather than chosen with the labels.
+The attribute itself is picked by whichever scores best, and the shuffled-label null repeats
+  that choice, which is why those nulls sit slightly above 0.5.
+For each pair of Fox8-23's human sources, we choose the best of seven attributes, such as the
+  follower count or the length of the bio.
+On BotSim-24 the best attribute is whether the account has a bio, a non-empty profile
+  description: all 1,000 generated accounts have one, against 278 of the 1,907 human accounts
+  (14.6\%).
+
+Twitter IO is scored one campaign at a time, each with whichever attribute separates its own
+  accounts best.
+Of its 27 campaigns, 25 have at least 20 accounts on each side and can be scored.
+Creation date gives the highest AUC in 21 of those 25; Table~1 of the paper gives the
+  range of the best attribute's AUC across the scored campaigns.
+% NEW: how a printed number was computed
+Above 10,000 accounts (TwiBot-20, MGTAB, TwiBot-22) the quantile transform behind the attribute baseline is fitted
+  on a random subsample of 10,000 accounts; we fix its seed.
+
+\paragraph{The Fox8-23 bag of words without the self-revealing phrases.}
+The phrases are ``as an AI language model'' and seven variants, such as ``I'm an AI'',
+  ``OpenAI'' and ``ChatGPT''; no human account in the cohort uses any of them.
+On the same 500 bots and 500 humans, deleting the phrases from every message leaves AUC and F1 at
+  1.0000.
+Dropping the accounts whose 50 scored messages contain one keeps 222 bots, and the scores stay at
+  1.0000.
+Dropping those whose full released history contains one keeps 31 bots; AUC stays at 1.0000, and
+  against 31 humans drawn at random, 100 times, F1 averages 0.9989.
+Shuffled labels give 0.47 to 0.51 in the first three runs.
+
+\paragraph{Masquerade-rebuilt built as the detector papers describe it.}
+Table~1 of the paper scores Masquerade-rebuilt as the text contrast it creates.
+Its published scores are for a different task: BotDMM, LLM-BotGuard and BotEvo classify humans,
+  TwiBot-20's traditional bots and LLM-driven bots.
+To compare on that task, we built the corpus as BotDMM and LLM-BotGuard describe it, with our own
+  draws where they are silent, and scored the same bag of words (Table~\ref{tab:masquerade}).
+Against humans, the LLM-driven bots separate at F1 0.9900, as on Fox8-23 and BotSim-24.
+On the three-way task the same model reaches macro F1 0.8194, below the published 0.89 to 0.94.
+What it separates less well is TwiBot-20's traditional bots from its humans (all bots against
+  humans, AUC 0.8976), the same difficulty as Table~1's TwiBot-20 row.
+Table~1's attribute cell reads ``accounts are TwiBot-20's'' for the same reason:
+  the LLM-driven accounts are TwiBot-20 bot accounts with replaced text.
+Under the BotDMM recipe and on Table~1's fields, the followers/friends ratio
+  separates them from humans at
+  0.7495, against 0.7485 for all of TwiBot-20's bots, and no account count separates them from the
+  traditional bots (0.48 to 0.51).
+
+\begin{table}[t]\centering\small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\linewidth}{!}{\begin{tabular}{llcccccc}
+\toprule
+construction & task and split & accuracy & macro F1 & weighted F1 & MCC & AUC & F1 \\
+\midrule
+BotDMM recipe & three-way, 70/20/10 test & 0.8115 & 0.8194 & 0.8089 & 0.7084 & & \\
+ & three-way, five-fold CV & 0.8150 & 0.8227 & 0.8117 & 0.7141 & & \\
+ & LLM-driven bots vs humans, 70/20/10 test & 0.9806 & & & & 0.9991 & 0.9730 \\
+ & LLM-driven bots vs humans, five-fold CV & 0.9927 & & & & 0.9995 & 0.9900 \\
+ & all bots vs humans, 70/20/10 test & 0.8014 & & & & 0.8939 & 0.8151 \\
+ & all bots vs humans, five-fold CV & 0.8082 & & & & 0.8976 & 0.8219 \\
+\addlinespace
+LLM-BotGuard recipe & three-way, 70/20/10 test & 0.8191 & 0.8024 & 0.8108 & 0.7224 & & \\
+ & three-way, five-fold CV & 0.8316 & 0.8179 & 0.8251 & 0.7410 & & \\
+ & LLM-driven bots vs humans, 70/20/10 test & 0.9886 & & & & 0.9994 & 0.9857 \\
+ & LLM-driven bots vs humans, five-fold CV & 0.9926 & & & & 0.9996 & 0.9907 \\
+ & all bots vs humans, 70/20/10 test & 0.8132 & & & & 0.9068 & 0.8228 \\
+ & all bots vs humans, five-fold CV & 0.8238 & & & & 0.9103 & 0.8342 \\
+\midrule
+published, BotDMM & three-way & 0.9542 & 0.9362 & & 0.9025 & & \\
+published, LLM-BotGuard & three-way & 0.8850 & 0.8851 & & 0.8212 & & \\
+published, LLM-BotGuard & bots vs humans & 0.8817 & & & & & \\
+published, BotEvo & three-way & & 0.8930 & & & & \\
+\bottomrule
+\end{tabular}}
+\caption{Built by the detector papers' recipe, Masquerade-rebuilt still lets a bag of words
+  separate LLM-driven bots from humans, but the bag of words falls below the published three-way scores.
+BotDMM replaces the tweets and profile description of 3,000 TwiBot-20 bot accounts with those of a
+  Masquerade-23 (Chirper.ai) account and relabels them LLM-driven; LLM-BotGuard replaces the tweets of 3,500;
+  BotEvo follows BotDMM.
+The papers do not state which accounts were drawn, how much of a timeline is replaced, or which F1
+  average is printed, so our rows are our own draws under their stated recipe, not their files.
+Our rows use TF-IDF over an account's words and logistic regression, fitted on the 70\% split and
+  scored on the 10\% test split, or scored out of fold under five-fold cross-validation; the last
+  column is the bot class's F1 at a 0.5 cut.
+The published rows are the papers' full models on their own draws.}
+\label{tab:masquerade}
+\end{table}
+
+\paragraph{A bag of words fitted on one corpus and scored on the other.}
+The transfer results use the text cohorts of Sect.~\ref{app:baselines}, 500 bots and 500 humans for
+  Fox8-23 and 329 and 408 for BotSim-24, 50 messages each joined into one document.
+The bag of words is fitted on every account of one corpus and scored on every account of the other,
+  so no test account is seen in training and no cross-validation is needed.
+Fitted on Fox8-23 it scores 0.998 on BotSim-24, and fitted on BotSim-24 it scores 0.890 on Fox8-23;
+  resampling the scored accounts 1,000 times puts these between 0.996 and 1.000 and between 0.869
+  and 0.909.
+Deleting ``as an AI language model'' from both corpora changes neither.
+Document length alone gives 0.781 and 0.744, and training on shuffled labels 0.51 and 0.49.
+Both sets of bots were written by OpenAI models, which may explain part of this transfer.
+In both corpora the humans were also gathered apart from the bots, so these transfer scores do not
+  separate shared writing features from collection differences.
+
+\section{Collection routes}\label{app:routes}
+\begin{table}[t]\centering\small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrcrrrr}
+\toprule
+                        &          &        & single-class & route-only & majority &      &     \\
+corpus, and recorded route   & accounts & routes & routes     & accuracy   & rate & gain & $V$ \\
+\midrule
+Fox8-23, a source dataset     &   2,280 &  5 & 5 of 5  & 1.0000 & 0.5000 & $+0.5000$ & 1.0000 \\
+BotSim-24, generated or scraped &  2,907 &  2 & 2 of 2  & 1.0000 & 0.6560 & $+0.3440$ & 1.0000 \\
+Masquerade-rebuilt, Chirper.ai or TwiBot-20 & 10,316 &  2 & 2 of 2  & 1.0000 & 0.5000 & $+0.5000$ & 1.0000 \\
+Twitter IO, the archive or the control search & 319,686 &  2 & 2 of 2  & 1.0000 & 0.9509 & $+0.0491$ & 1.0000 \\
+Bluesky, a recorded source    & 10,610 &  9 & 8 of 9  & 0.9955 & 0.6027 & $+0.3927$ & 0.9907 \\
+TwiBot-20, a seed domain      &  11,826 & 15 & 0 of 15 & 0.6553 & 0.5572 & $+0.0982$ & 0.3712 \\
+\bottomrule
+\end{tabular}}
+\caption{The collection route alone perfectly predicts the label in all three LLM-era candidates.
+A route is where an account comes from and what brings it into the corpus, such as a search, an
+  earlier study or a community report.
+The table covers every corpus whose account routes are recorded or fixed by construction.
+Route-only accuracy is the accuracy of predicting the most common class within each route;
+  majority rate is that of always predicting the largest class; gain is their difference.
+Cram\'er's $V$ measures route--label association (0: independent; 1: route determines label).
+Only in TwiBot-20 does every route contain both classes.
+In BotSim-24, Masquerade-rebuilt and Twitter IO the route is the class by construction, so their
+  accuracy of 1 is true by definition, not measured.}
+\label{tab:route}
+\end{table}
+
+In Table~\ref{tab:route}, BotSim-24, Masquerade-rebuilt and Twitter IO each use a separate route
+  for each class by construction.
+Bluesky records what brought each account in, such as a purchase or a community report; eight
+  of its nine sources contain only one class.
+\citet{meng2026navigating} report excluding features used in constructing their Bluesky dataset
+  from their classifiers.
+\textbf{We measure how well the recorded collection route alone predicts the label}, Bluesky included
+  (Table~\ref{tab:route}), and we require one route for both classes (Sect.~2.3 of the paper).
+
+\section{Every Twitter IO campaign, scored against its own controls}\label{app:io}
+Twitter IO is the one family that releases its own controls, so each campaign is scored without
+  us choosing the human side.
+Simple baselines still separate the classes: the median campaign has bag-of-words AUC 0.9665
+  (Table~\ref{tab:io}).
+Creation date is the best single attribute in 21 of the 25 scored campaigns, with median AUC 0.91.
+The creation-date result has two possible explanations, and the release does not separate them.
+Campaign accounts may really be registered in bursts, which is behaviour a detector should
+  use, or the difference may come from how the controls were gathered, since they were chosen by
+  hashtag and day and not by creation date.
+
+\paragraph{How the two classes were gathered.}
+The operation's accounts come from Twitter's archive with their whole timelines.
+The controls are accounts that used one of the operation's hashtags on the same day, with at most
+  100 of their posts from those days, and the authors note that a control's posts cover a short
+  period while an operation account's can span years \citep{seckin2024labeled}.
+Across all 27 campaigns, the operation's accounts have more posts than their controls in 26,
+  at a median ratio of 7.0.
+Their posts span a median of 137 days, against 0 for controls, and the most common language
+  differs between the classes in 12 campaigns.
+
+\paragraph{Scoring.}
+Table~\ref{tab:io} scores the 25 campaigns with enough accounts in both classes.
+The account-level baseline uses up to 200 posts per account, drops reposts, keeps messages of
+  at least 20 characters without a language filter, caps each class at 4,000 accounts, and uses
+  five-fold cross-validation.
+Bangladesh (11 accounts) and Russia\_3 (5) fall below the floor of 20 accounts per class and
+  are not scored.
+
+\paragraph{Matching the two classes exactly by hashtag and day.}
+The rule both classes share is a post under a given hashtag on a given day, so the match is made
+  per message (Table~\ref{tab:iomatch}).
+All four rows use posts in the operation's most common language, at most five posts per account,
+  and the same number of posts per class.
+The first row draws posts at random.
+The second keeps only posts under a hashtag and day that both classes used.
+The third gives both classes exactly the same number of posts under each hashtag and day, and the
+  fourth also deletes hashtags, mentions and URLs from the text and drops any text that occurs more
+  than once.
+Folds are grouped by account, the AUC is computed inside each fold and averaged, and each cell is
+  the mean of ten draws.
+Four of the 27 campaigns keep at least 100 exactly matched posts from at least 20 accounts in each
+  class in all ten draws, and only those are scored.
+One Ecuador account appears in both classes; all of its posts are excluded.
+Shuffling the labels by account gives 0.49 to 0.51 in every cell.
+
+Matching frequencies matters.
+An account-level check using three posts per account matched which hashtags and days appeared,
+  but not how often.
+AUC fell in 2 of 10 campaigns and rose at the median, from 0.873 to 0.911.
+The exact message-level match controls those frequencies in both classes.
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lcccr}
+\toprule
+campaign & bag of words & length & null & accounts, campaign / control \\
+\midrule
+Qatar           & 0.8087 & 0.7127 & 0.5065 & 28 / 4,000 \\
+China\_2        & 0.8698 & 0.8273 & 0.5214 & 179 / 4,000 \\
+Russia\_4       & 0.9033 & 0.7987 & 0.5041 & 24 / 4,000 \\
+Venezuela\_2    & 0.9058 & 0.9737 & 0.5187 & 33 / 3,002 \\
+Russia\_2       & 0.9143 & 0.6644 & 0.4814 & 351 / 1,892 \\
+Thailand        & 0.9177 & 0.5363 & 0.5285 & 301 / 1,386 \\
+Iran\_2         & 0.9491 & 0.6437 & 0.4915 & 289 / 4,000 \\
+Iran\_3         & 0.9535 & 0.7137 & 0.5224 & 135 / 1,659 \\
+China\_1        & 0.9548 & 0.7130 & 0.4948 & 683 / 4,000 \\
+Russia\_5       & 0.9556 & 0.7578 & 0.4683 & 48 / 4,000 \\
+Cuba\_2         & 0.9605 & 0.8255 & 0.5144 & 422 / 528 \\
+Ghana/Nigeria   & 0.9607 & 0.8685 & 0.4352 & 57 / 885 \\
+Ecuador         & 0.9665 & 0.6862 & 0.4965 & 768 / 4,000 \\
+Iran\_1         & 0.9666 & 0.6985 & 0.4951 & 644 / 4,000 \\
+Spain           & 0.9672 & 0.8250 & 0.4761 & 210 / 1,067 \\
+Iran\_6         & 0.9673 & 0.8774 & 0.4849 & 206 / 4,000 \\
+Catalonia       & 0.9686 & 0.6565 & 0.5458 & 47 / 1,723 \\
+UAE             & 0.9758 & 0.8196 & 0.4961 & 3,432 / 4,000 \\
+Egypt/UAE       & 0.9759 & 0.8461 & 0.4709 & 236 / 285 \\
+Russia\_1       & 0.9763 & 0.7297 & 0.5088 & 3,123 / 4,000 \\
+Cuba\_1         & 0.9800 & 0.8852 & 0.4871 & 377 / 4,000 \\
+Iran\_4         & 0.9821 & 0.6075 & 0.4899 & 2,468 / 4,000 \\
+Armenia         & 0.9837 & 0.7253 & 0.5121 & 31 / 1,384 \\
+Venezuela\_1    & 0.9928 & 0.9136 & 0.5005 & 577 / 4,000 \\
+Iran\_5         & 0.9938 & 0.3054 & 0.5505 & 104 / 889 \\
+\bottomrule
+\end{tabular}
+\caption{A bag of words exceeds AUC 0.90 in 23 of 25 campaigns with no LLM-written posts.
+Each Twitter IO campaign is compared with its released controls at account level, using five-fold
+  cross-validation (median AUC 0.9665; range 0.8087--0.9938).
+``Length'' uses only the character count of joined posts; ``null'' uses shuffled labels.
+Below-chance AUCs retain their direction.}
+\label{tab:io}
+\end{table}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lcccc}
+\toprule
+posts compared & Cuba\_1 & Ecuador & Russia\_1 & Spain \\
+\midrule
+drawn at random                  & 0.710 & 0.819 & 0.783 & 0.867 \\
+hashtag and day used by both     & 0.655 & 0.844 & 0.815 & 0.872 \\
+same number per hashtag and day  & 0.471 & 0.673 & 0.569 & 0.683 \\
+\quad and no tags, no repeated text & 0.495 & 0.632 & 0.581 & 0.612 \\
+\addlinespace
+posts per class                  & 158 & 307 & 195 & 137 \\
+\bottomrule
+\end{tabular}
+\caption{Recovering a shared route lowers message-level AUC in all four Twitter IO campaigns.
+Median bag-of-words AUC falls from 0.801 to 0.621 when bots and controls contribute equal numbers
+  of posts per shared hashtag and day.
+Rows progress from random posts to shared hashtag--day pairs, then equal class counts within
+  each pair; the final row also removes hashtags, mentions, URLs and repeated text.
+AUCs average ten draws with cross-validation folds grouped by account.}
+\label{tab:iomatch}
+\end{table}
+% NEW: how the matched rows were sampled
+In the last two rows of Table~\ref{tab:iomatch} every hashtag and day holds the same number of bot and control
+  posts in every draw.
+
+\section{Collecting a corpus, in full}\label{app:collect}
+The paper's Sect.~5 gives the short form of this advice; this is the long form it is shortened from.
+
+\paragraph{Where to get it.}
+Most corpora come from a platform's API or from scraping.
+Both see only what is public and still online: the platform's own records stay out of reach, and
+  removed accounts are gone.
+The EU's Digital Services Act gives researchers another way to obtain data
+  \citep{eu2022dsa}.
+Under its Article 40, a researcher can ask a very large online platform for data to study
+  systemic risks.
+Bot activity is one of them: Article 34(2) names ``inauthentic use or automated exploitation of
+  the service''.
+The request can cover public data (Article 40(12)) and, for vetted researchers, non-public data
+  (Article 40(4), with access procedures in force since October 2025
+  \citep{eu2025dataaccess}).
+In either case a researcher can ask for bots and humans collected by one route, and for the
+  records needed to check it.
+What a platform hands over is settled case by case.
+
+\paragraph{What to keep.}
+We recommend keeping everything the platform's terms and the study's ethics approval allow.
+A post not kept now may be gone later, and collecting only what is still online introduces
+  survivorship bias.
+Three things are easy to lose and hard to reconstruct:
+\begin{itemize}
+\item \textbf{Whole account histories.} As many posts per account as possible, for both classes,
+  let an evaluation compare a few posts with a longer history. An analysis can subsample later,
+  but it cannot recover posts that were never kept.
+\item \textbf{Each account's route.} A record of how every account entered the corpus, including
+  any search terms used to find it, lets researchers check whether the route predicts the label
+  and test a detector on accounts from a route held out of training (Sect.~2.3 of the paper).
+\item \textbf{The post each reply answers.} Its identifier and text let replies to the same posts
+  be collected by one rule for both classes, which gives reply bots a shared route
+  (Sect.~2.3 of the paper). It also lets future detectors use the conversation, not the reply alone.
+\end{itemize}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

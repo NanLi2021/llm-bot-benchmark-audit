@@ -1,0 +1,8 @@
+corpus,accounts,routes,single_class_routes,pct_accounts_in_single_class_routes,route_only_accuracy,majority_base_rate,gain_over_base,cramers_v
+TwiBot-20,11826,15,0/15,0.0,0.6553,0.5572,0.0982,0.3712
+Fox8-23,2280,5,5/5,100.0,1.0,0.5,0.5,1.0
+BotSim-24,2907,2,2/2,100.0,1.0,0.656,0.344,1.0
+Masquerade-rebuilt,10316,2,2/2,100.0,1.0,0.5,0.5,1.0
+Meng 2026,10610,9,8/9,81.5,0.9955,0.6027,0.3927,0.9907
+Twitter IO campaigns,319686,27,0/27,0.0,0.9509,0.9509,0.0,0.3402
+Twitter IO,319686,2,2/2,100.0,1.0,0.9509,0.0491,1.0

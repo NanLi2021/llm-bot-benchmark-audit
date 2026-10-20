@@ -1,0 +1,125 @@
+corpus,route,label,accounts
+TwiBot-20,"['Business', 'Entertainment', 'Sports']",0,69
+TwiBot-20,"['Business', 'Entertainment', 'Sports']",1,5
+TwiBot-20,"['Business', 'Entertainment']",0,108
+TwiBot-20,"['Business', 'Entertainment']",1,20
+TwiBot-20,"['Business', 'Sports']",0,71
+TwiBot-20,"['Business', 'Sports']",1,40
+TwiBot-20,['Business'],0,1040
+TwiBot-20,['Business'],1,1517
+TwiBot-20,"['Entertainment', 'Sports']",0,120
+TwiBot-20,"['Entertainment', 'Sports']",1,51
+TwiBot-20,['Entertainment'],0,1044
+TwiBot-20,['Entertainment'],1,1616
+TwiBot-20,"['Politics', 'Business', 'Entertainment', 'Sports']",0,346
+TwiBot-20,"['Politics', 'Business', 'Entertainment', 'Sports']",1,11
+TwiBot-20,"['Politics', 'Business', 'Entertainment']",0,125
+TwiBot-20,"['Politics', 'Business', 'Entertainment']",1,8
+TwiBot-20,"['Politics', 'Business', 'Sports']",0,77
+TwiBot-20,"['Politics', 'Business', 'Sports']",1,5
+TwiBot-20,"['Politics', 'Business']",0,166
+TwiBot-20,"['Politics', 'Business']",1,32
+TwiBot-20,"['Politics', 'Entertainment', 'Sports']",0,88
+TwiBot-20,"['Politics', 'Entertainment', 'Sports']",1,5
+TwiBot-20,"['Politics', 'Entertainment']",0,146
+TwiBot-20,"['Politics', 'Entertainment']",1,27
+TwiBot-20,"['Politics', 'Sports']",0,90
+TwiBot-20,"['Politics', 'Sports']",1,41
+TwiBot-20,['Politics'],0,996
+TwiBot-20,['Politics'],1,1097
+TwiBot-20,['Sports'],0,751
+TwiBot-20,['Sports'],1,2114
+Fox8-23,botometer-feedback,bot,0
+Fox8-23,botometer-feedback,human,285
+Fox8-23,fox8,bot,1140
+Fox8-23,fox8,human,0
+Fox8-23,gilani-17,bot,0
+Fox8-23,gilani-17,human,285
+Fox8-23,midterm-2018,bot,0
+Fox8-23,midterm-2018,human,285
+Fox8-23,varol-icwsm,bot,0
+Fox8-23,varol-icwsm,human,285
+BotSim-24,generated for the corpus,bot,1000
+BotSim-24,generated for the corpus,human,0
+BotSim-24,scraped from Reddit,bot,0
+BotSim-24,scraped from Reddit,human,1907
+Masquerade-rebuilt,Chirper.ai,bot,5158
+Masquerade-rebuilt,Chirper.ai,human,0
+Masquerade-rebuilt,TwiBot-20,bot,0
+Masquerade-rebuilt,TwiBot-20,human,5158
+Meng 2026,Communnity report,bot,1023
+Meng 2026,Communnity report,human,0
+Meng 2026,Coordination cues,bot,412
+Meng 2026,Coordination cues,human,0
+Meng 2026,LLM-generated phrases,bot,106
+Meng 2026,LLM-generated phrases,human,0
+Meng 2026,Manual coding,bot,48
+Meng 2026,Manual coding,human,1917
+Meng 2026,Platform moderation,bot,100
+Meng 2026,Platform moderation,human,0
+Meng 2026,Purchased,bot,1309
+Meng 2026,Purchased,human,0
+Meng 2026,Self-declared,bot,967
+Meng 2026,Self-declared,human,0
+Meng 2026,Simulation,bot,250
+Meng 2026,Simulation,human,0
+Meng 2026,Verified accounts,bot,0
+Meng 2026,Verified accounts,human,4478
+Twitter IO campaigns,Armenia,control,1767
+Twitter IO campaigns,Armenia,io,31
+Twitter IO campaigns,Bangladesh,control,929
+Twitter IO campaigns,Bangladesh,io,11
+Twitter IO campaigns,Catalonia,control,2607
+Twitter IO campaigns,Catalonia,io,76
+Twitter IO campaigns,China_1,control,42120
+Twitter IO campaigns,China_1,io,699
+Twitter IO campaigns,China_2,control,35806
+Twitter IO campaigns,China_2,io,191
+Twitter IO campaigns,Cuba_1,control,29343
+Twitter IO campaigns,Cuba_1,io,388
+Twitter IO campaigns,Cuba_2,control,804
+Twitter IO campaigns,Cuba_2,io,434
+Twitter IO campaigns,Ecuador,control,21137
+Twitter IO campaigns,Ecuador,io,787
+Twitter IO campaigns,Egypt_UAE,control,370
+Twitter IO campaigns,Egypt_UAE,io,240
+Twitter IO campaigns,Ghana_Nigeria,control,1166
+Twitter IO campaigns,Ghana_Nigeria,io,60
+Twitter IO campaigns,Iran_1,control,5015
+Twitter IO campaigns,Iran_1,io,660
+Twitter IO campaigns,Iran_2,control,6615
+Twitter IO campaigns,Iran_2,io,389
+Twitter IO campaigns,Iran_3,control,2240
+Twitter IO campaigns,Iran_3,io,210
+Twitter IO campaigns,Iran_4,control,7612
+Twitter IO campaigns,Iran_4,io,2519
+Twitter IO campaigns,Iran_5,control,1247
+Twitter IO campaigns,Iran_5,io,104
+Twitter IO campaigns,Iran_6,control,16885
+Twitter IO campaigns,Iran_6,io,209
+Twitter IO campaigns,Qatar,control,19481
+Twitter IO campaigns,Qatar,io,29
+Twitter IO campaigns,Russia_1,control,31299
+Twitter IO campaigns,Russia_1,io,3293
+Twitter IO campaigns,Russia_2,control,2175
+Twitter IO campaigns,Russia_2,io,361
+Twitter IO campaigns,Russia_3,control,780
+Twitter IO campaigns,Russia_3,io,5
+Twitter IO campaigns,Russia_4,control,36533
+Twitter IO campaigns,Russia_4,io,24
+Twitter IO campaigns,Russia_5,control,13077
+Twitter IO campaigns,Russia_5,io,51
+Twitter IO campaigns,Spain,control,1681
+Twitter IO campaigns,Spain,io,216
+Twitter IO campaigns,Thailand,control,2549
+Twitter IO campaigns,Thailand,io,455
+Twitter IO campaigns,UAE,control,10545
+Twitter IO campaigns,UAE,io,3658
+Twitter IO campaigns,Venezuela_1,control,6327
+Twitter IO campaigns,Venezuela_1,io,578
+Twitter IO campaigns,Venezuela_2,control,3865
+Twitter IO campaigns,Venezuela_2,io,33
+Twitter IO,Twitter's takedown archive,control,0
+Twitter IO,Twitter's takedown archive,io,15711
+Twitter IO,a hashtag and day search,control,303975
+Twitter IO,a hashtag and day search,io,0

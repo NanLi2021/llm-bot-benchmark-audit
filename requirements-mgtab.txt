@@ -1,0 +1,3 @@
+# Optional: only the MGTAB cell of Table 1 needs it (MGTAB ships its features as torch tensors).
+--index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1
